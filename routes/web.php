@@ -14,5 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $comics_list = config("comics");
+    return view('home', ["comics"=>$comics_list]);
 });
+
+Route::get('/comic/{id?}', function($id) {
+    $comics_list = config("comics");
+    $comic = $comics_list[$id];
+    $comic["id"] = $id;
+    return view('comic', ["comic"=>$comic]);
+})->name("fumetto");
+
+
